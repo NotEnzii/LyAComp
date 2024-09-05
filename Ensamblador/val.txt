@@ -1,0 +1,45 @@
+	.def	___main;	.scl	2;	.type	32;	.endef
+	.section .rdata,"dr"
+LC0:
+	.ascii "Ingrese un caracter: \0"
+LC1:
+	.ascii "%c\0"
+	.align 4
+LC2:
+	.ascii "El codigo ASCII del caracter es: %d\0"
+	.text
+	.globl	_main
+	.def	_main;	.scl	2;	.type	32;	.endef
+_main:
+LFB13:
+	.cfi_startproc
+	pushl	%ebp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 5, -8
+	movl	%esp, %ebp
+	.cfi_def_cfa_register 5
+	andl	$-16, %esp
+	subl	$32, %esp
+	call	___main
+L2:
+	movl	$LC0, (%esp)
+	call	_printf
+	leal	27(%esp), %eax
+	movl	%eax, 4(%esp)
+	movl	$LC1, (%esp)
+	call	_scanf
+	movzbl	27(%esp), %eax
+	movsbl	%al, %eax
+	movl	%eax, 28(%esp)
+	movl	28(%esp), %eax
+	movl	%eax, 4(%esp)
+	movl	$LC2, (%esp)
+	call	_printf
+	movl	$10, (%esp)
+	call	_putchar
+	jmp	L2
+	.cfi_endproc
+LFE13:
+	.def	_printf;	.scl	2;	.type	32;	.endef
+	.def	_scanf;	.scl	2;	.type	32;	.endef
+	.def	_putchar;	.scl	2;	.type	32;	.endef
